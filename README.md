@@ -1,5 +1,6 @@
 # Adaptive Curves for Optimally Efficient Market Making
  
+## Empirical Results
 
 The EmpiricalResults folder contains our simulation codebase. This folder has the following important files:
 
@@ -20,10 +21,6 @@ This file runs multiple simulations of `main.py`.
 ## plot.py
 
 This file plots the monetary loss comparison averaged over multiple simulations and different values of eta and sigma. We recommend this file be run after `run.sh` completes.
-
-## main_notebook.ipynb
-
-Same as `main.py` but in a Jupyter notebook format. Also shows the output plots in the notebook in addition to storing them.
 
 ## env.py
 
@@ -47,3 +44,7 @@ conda create --name adaptswap python=3.8
 conda activate adaptswap
 conda install gym numpy matplotlib torch scipy pandas tqdm
 ```
+
+## Implementation
+
+The OnChainImplementation folder contains the code for the Axiom circuit (for the Kalman filter-based algorithm) and the Uniswap v4 hook that takes off-chain data.
