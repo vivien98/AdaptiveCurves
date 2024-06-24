@@ -79,8 +79,18 @@ contract AdaptiveAMMHook is BaseHook, AxiomV2Client {
         uint256 theta,
         bool zeroForOne
     ) internal pure returns (uint256 amountOut) {
-        // Implement the adaptive AMM swap calculation here
-        // This should use the theta value to determine the curve shape
+        uint256 weightRatio = theta * 1e18 / (100 * 1e18);
+        uint256 invariant = (reserve0 ** weightRatio) * (reserve1 ** (1e18 - weightRatio));
+        
+        if (zeroForOne) {
+            uint256 newReserve0 = reserve0 + amountIn;
+            uint256 newReserve1 = (invariant / (newReserve0 ** weightRatio)) ** (1e18 / (1e18 - weightRatio));
+            amountOut = reserve1 - newReserve1;
+        } else {
+            uint256 newReserve1 = reserve1 + amountIn;
+            uint256 newReserve0 = (invariant / (newReserve1 ** (1e18 - weightRatio))) ** (1e18 / weightRatio);
+            amountOut = reserve0 - newReserve0;
+        }
     }
 
     function _axiomV2Callback(

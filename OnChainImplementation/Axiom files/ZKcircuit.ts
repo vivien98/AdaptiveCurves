@@ -1,5 +1,3 @@
-// axiom-adaptive-amm.ts
-
 import { AxiomV2Callback, AxiomV2ComputeQuery } from "@axiom-crypto/v2-client";
 
 class AdaptiveAMMQuery implements AxiomV2ComputeQuery {
